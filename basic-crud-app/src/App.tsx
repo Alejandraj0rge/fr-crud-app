@@ -1,33 +1,44 @@
 import { useState } from 'react'
+// import { initializeApp } from "firebase/app";
 import reactLogo from './assets/react.svg'
-import { firebaseConfig } from './firebaseConfig'
 import './App.css'
+import './firebaseConfig'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDQhH06JXcM0WwsIKXH4s-UwJZZCbyT7A8",
+//   authDomain: "crud-base-project-2f598.firebaseapp.com",
+//   projectId: "crud-base-project-2f598",
+//   storageBucket: "crud-base-project-2f598.appspot.com",
+//   messagingSenderId: "587729768113",
+//   appId: "1:587729768113:web:a8da7d9b13036871c7dc90"
+// };
+
+// initializeApp(firebaseConfig);
+
+// const auth = getAuth();
+
+// createUserWithEmailAndPassword(auth, "acjc-1999@hotmail.com", "123Aa45**")
+//   .then((userCredential) => {
+//     // Signed in 
+//     const user = userCredential.user;
+//     console.log(userCredential.user);
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     console.log(errorMessage);
+//   });
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <input placeholder=''></input>
+      <input placeholder=''></input>
+      <button></button>
     </div>
   )
 }
