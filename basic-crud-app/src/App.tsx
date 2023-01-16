@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useRef} from 'react'
 // import { initializeApp } from "firebase/app";
 import reactLogo from './assets/react.svg'
 import './App.css'
 import './firebaseConfig'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+
+// const [updatedEmail, setUpdatedEmail] = useState('');
+// const [updatedPassword, setUpdatedPassword] = useState('');
 
 // const firebaseConfig = {
 //   apiKey: "AIzaSyDQhH06JXcM0WwsIKXH4s-UwJZZCbyT7A8",
@@ -32,13 +35,36 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 //   });
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [erroMessage, setError] = useState(null);
+	const auth = getAuth();
+	const email = useRef(null);
+	const password = useRef(null);
+
+  function logIn(){
+	if(password.current && email.current){
+		signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+			.then((userCredential) => {
+				// Signed in 
+				const user = userCredential.user;
+				console.log(user, auth.currentUser);
+			})
+			.catch((error) => {
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				setError(errorMessage);
+				console.log(errorMessage);
+				
+			});
+	} 
+}
 
   return (
     <div className="App">
-      <input placeholder=''></input>
-      <input placeholder=''></input>
-      <button></button>
+      <input ref={email} placeholder='email'></input>
+      <input ref={password} placeholder='password'></input>
+      <button onClick={() => {logIn()}}>Log In</button>
+	  <div>{erroMessage}</div>
+	  <a>Forgot your password?</a>
     </div>
   )
 }
