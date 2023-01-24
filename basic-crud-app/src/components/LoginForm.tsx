@@ -2,7 +2,7 @@ import { useState, useRef} from 'react'
 // import { initializeApp } from "firebase/app";
 import reactLogo from './assets/react.svg'
 import './App.css'
-import './firebaseConfig'
+import '../firebaseConfig'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 
 // const [updatedEmail, setUpdatedEmail] = useState('');
@@ -34,39 +34,38 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 //     console.log(errorMessage);
 //   });
 
-function App() {
+function LoginForm() {
 	const [erroMessage, setError] = useState(null);
 	const auth = getAuth();
 	const email = useRef(null);
 	const password = useRef(null);
 
-  function logIn(){
-	if(password.current && email.current){
-		signInWithEmailAndPassword(auth, email.current.value, password.current.value)
-			.then((userCredential) => {
-				// Signed in 
-				const user = userCredential.user;
-				console.log(user, auth.currentUser);
-			})
-			.catch((error) => {
-				const errorCode = error.code;
-				const errorMessage = error.message;
-				setError(errorMessage);
-				console.log(errorMessage);
-				
-			});
-	} 
+	function logIn(){
+		if(password.current && email.current){
+			signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+				.then((userCredential) => {
+					const user = userCredential.user;
+					console.log(user, auth.currentUser);
+				})
+				.catch((error) => {
+					const errorCode = error.code;
+					const errorMessage = error.message;
+					setError(errorMessage);
+					console.log(errorMessage);
+					
+				});
+		} 
+	}
+
+	return (
+		<div className="App">
+		<input ref={email} placeholder='email'></input>
+		<input ref={password} placeholder='password'></input>
+		<button onClick={() => {logIn()}}>Log In</button>
+		<div>{erroMessage}</div>
+		<a>Forgot your password?</a>
+		</div>
+	)
 }
 
-  return (
-    <div className="App">
-      <input ref={email} placeholder='email'></input>
-      <input ref={password} placeholder='password'></input>
-      <button onClick={() => {logIn()}}>Log In</button>
-	  <div>{erroMessage}</div>
-	  <a>Forgot your password?</a>
-    </div>
-  )
-}
-
-export default App
+export default LoginForm
